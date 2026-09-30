@@ -4,6 +4,8 @@
 
 ここに置いたファイルは、同じ organization が所有する全リポジトリ（private を含む）のうち、**自前の同名ファイルを持たないもの** に自動で適用されます。GitHub の仕様上、この機能を有効にするには本リポジトリが public である必要があります。
 
+GitHub の[既定コミュニティファイルの説明](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)によると、配布先の可視性にかかわらず適用され、テンプレートはこのリポジトリのルート・`.github/`・`docs/` のいずれにも置けます。ここでは `.github/pull_request_template.md` を使います。
+
 | ファイル | 適用範囲 |
 | --- | --- |
 | [`SECURITY.md`](./SECURITY.md) | 脆弱性の報告経路と対応の目安 |
