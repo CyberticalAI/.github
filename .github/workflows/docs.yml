@@ -1,0 +1,66 @@
+name: Organization docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check required public documents
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          for name in ("README.md", "SECURITY.md"):
+              path = Path(name)
+              if not path.is_file() or not path.read_text().strip():
+                  raise SystemExit(f"Missing or empty: {name}")
+          readme = Path("README.md").read_text()
+          readme = re.sub(r"<!--.*?-->", "", readme, flags=re.DOTALL)
+          visible_lines = []
+          fence = None
+          for line in readme.splitlines():
+              match = re.match(r"^ {0,3}(`{3,}|~{3,})", line)
+              if fence is not None:
+                  if (match and match.group(1)[0] == fence[0]
+                          and len(match.group(1)) >= fence[1]
+                          and not line[match.end():].strip()):
+                      fence = None
+                  continue
+              if match:
+                  fence = (match.group(1)[0], len(match.group(1)))
+                  continue
+              visible_lines.append(line)
+          if not any(re.search(r"^\|\s*\[[^\]\n]+\]\(\./SECURITY\.md\)\s*\|", line)
+                     for line in visible_lines):
+              raise SystemExit("README.md must list a Markdown link to SECURITY.md")
+          print("Required public documents are present.")
+          PY
+      - name: Check changed lines
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = pull_request ]; then
+            git diff --check "$BASE_SHA...$HEAD_SHA"
+          elif git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+            git diff --check "$BEFORE_SHA" HEAD
+          else
+            git diff --check "$(git hash-object -t tree /dev/null)" HEAD
+          fi
