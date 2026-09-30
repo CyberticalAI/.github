@@ -22,13 +22,26 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
 
           for name in ("README.md", "SECURITY.md"):
               path = Path(name)
               if not path.is_file() or not path.read_text().strip():
                   raise SystemExit(f"Missing or empty: {name}")
-          if "./SECURITY.md" not in Path("README.md").read_text():
-              raise SystemExit("README.md must link to SECURITY.md")
+          readme = Path("README.md").read_text()
+          readme = re.sub(r"<!--.*?-->", "", readme, flags=re.DOTALL)
+          visible_lines = []
+          fence = None
+          for line in readme.splitlines():
+              marker = line.lstrip()[:3]
+              if marker in ("```", "~~~"):
+                  fence = None if fence == marker else marker
+                  continue
+              if fence is None:
+                  visible_lines.append(line)
+          visible = "\n".join(visible_lines)
+          if not re.search(r"(?<!`)\[[^\]\n]+\]\(\s*(?:\./SECURITY\.md|<\./SECURITY\.md>)\s*\)", visible):
+              raise SystemExit("README.md must contain a Markdown link to SECURITY.md")
           print("Required public documents are present.")
           PY
       - name: Check changed lines
@@ -40,9 +53,9 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = pull_request ]; then
-            git diff --check "$BASE_SHA" "$HEAD_SHA"
+            git diff --check "$BASE_SHA...$HEAD_SHA"
           elif git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
             git diff --check "$BEFORE_SHA" HEAD
           else
-            git diff --check HEAD^ HEAD
+            git diff --check "$(git hash-object -t tree /dev/null)" HEAD
           fi
