@@ -44,9 +44,9 @@ jobs:
                   fence = (match.group(1)[0], len(match.group(1)))
                   continue
               visible_lines.append(line)
-          visible = "\n".join(visible_lines)
-          if not re.search(r"(?<!`)\[[^\]\n]+\]\(\s*(?:\./SECURITY\.md|<\./SECURITY\.md>)\s*\)", visible):
-              raise SystemExit("README.md must contain a Markdown link to SECURITY.md")
+          if not any(re.search(r"^\|\s*\[[^\]\n]+\]\(\./SECURITY\.md\)\s*\|", line)
+                     for line in visible_lines):
+              raise SystemExit("README.md must list a Markdown link to SECURITY.md")
           print("Required public documents are present.")
           PY
       - name: Check changed lines
