@@ -12,7 +12,8 @@ CyberticalAI organization の default community health files(`SECURITY.md`、`.g
 
 ## Commands
 
-- N/A(Markdown だけのリポで、install / test / build は無い)
+- install / build: N/A(Markdown だけのリポ)
+- CI: `.github/workflows/docs.yml` が README と SECURITY の存在・リンク、変更行を検査する
 
 ## Constraints
 
@@ -21,7 +22,7 @@ CyberticalAI organization の default community health files(`SECURITY.md`、`.g
 
 ## Verification
 
-- N/A(CI は無い)。変更後は GitHub 上で Markdown の表示を確認する
+- PR の `docs` チェックを通し、GitHub 上で Markdown の表示を確認する
 
 ## Delivery
 
