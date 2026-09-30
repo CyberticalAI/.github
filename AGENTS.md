@@ -4,7 +4,7 @@ Repo-specific delta only. The global baseline is inherited; do not repeat it her
 
 ## Scope
 
-CyberticalAI organization の default community health files(`SECURITY.md`、`.github/pull_request_template.md`)を置く public リポ。自前の同名ファイルを持たない org 内の全リポに自動で適用される。
+CyberticalAI organization の default community health files(`SECURITY.md`、`.github/pull_request_template.md`)を置く public リポ。適用条件は README の GitHub 公式文書を参照する。
 
 ## Paths
 

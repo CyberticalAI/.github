@@ -2,9 +2,9 @@
 
 株式会社サイバーティカル（CyberticalAI organization）の **default community health files** を置くリポジトリです。
 
-ここに置いたファイルは、同じ organization が所有する全リポジトリ（private を含む）のうち、**自前の同名ファイルを持たないもの** に自動で適用されます。GitHub の仕様上、この機能を有効にするには本リポジトリが public である必要があります。
+ここに置いたファイルは、同じ organization が所有するリポジトリのうち、**自前の同名ファイルを持たないもの** に自動で適用されます。GitHub の仕様上、この機能を有効にするには本リポジトリが public である必要があります。
 
-GitHub の[既定コミュニティファイルの説明](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)によると、配布先の可視性にかかわらず適用され、テンプレートはこのリポジトリのルート・`.github/`・`docs/` のいずれにも置けます。ここでは `.github/pull_request_template.md` を使います。
+適用条件と配置場所は GitHub の[既定コミュニティファイルの説明](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)に従います。ここでは `.github/pull_request_template.md` を使います。
 
 | ファイル | 適用範囲 |
 | --- | --- |
