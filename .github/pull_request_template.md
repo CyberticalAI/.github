@@ -3,7 +3,8 @@
 
 ## なぜ
 <!-- 関連する Issue・依頼・不具合。この PR で Issue の受入条件をすべて満たすときは「Closes #番号」
-     (別リポなら「Closes リポ名#番号」)。merge で Issue が閉じ、Project の状態も進みます。
+     (別リポなら「Closes 組織名/リポ名#番号」)。既定ブランチへ merge すると Issue が閉じ、
+     Project で自動化を有効にしていれば、その Project の状態も進みます。
      一部だけを進める PR は、閉じない参照の「Refs #番号」にしてください。 -->
 Closes #
 
