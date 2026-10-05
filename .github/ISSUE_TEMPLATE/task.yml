@@ -6,6 +6,7 @@ body:
       value: |
         同じ作業の issue が既に無いかを検索してから作成してください。
         大きな作業は親 issue（目的と受入条件）と sub-issue（末端の作業）に分けます。
+        **As-Is と To-Be は必ず書いてください。** 非公開リポでは、フォームの必須の検査が効かず空のまま送信できてしまいます。
   - type: textarea
     id: as-is
     attributes:
