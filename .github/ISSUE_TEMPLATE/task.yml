@@ -1,0 +1,37 @@
+name: 作業
+description: 開発・調査・運用の作業を、事実（As-Is）・目標（To-Be）・実行・証拠に分けて記録する
+body:
+  - type: markdown
+    attributes:
+      value: |
+        同じ作業の issue が既に無いかを検索してから作成してください。
+        大きな作業は親 issue（目的と受入条件）と sub-issue（末端の作業）に分けます。
+        **As-Is と To-Be は必ず書いてください。** 非公開リポでは、フォームの必須の検査が効かず空のまま送信できてしまいます。
+  - type: textarea
+    id: as-is
+    attributes:
+      label: As-Is（現状）
+      description: 観測日時、対象環境、source の URL と commit/版、確認方法。現物で確認したもの・履歴からの参考・未検証を区別して書きます。
+    validations:
+      required: true
+  - type: textarea
+    id: to-be
+    attributes:
+      label: To-Be（目標）
+      description: 目標、対象と対象外、受入条件。提案と、人が決めた内容を分けて書きます。
+    validations:
+      required: true
+  - type: textarea
+    id: execution
+    attributes:
+      label: 実行
+      description: 担当、次の一手、実際に阻んでいる依存、関連 issue、PR。依存は blocked-by、作業の分解は sub-issue、関連は参照リンクで区別します。
+    validations:
+      required: false
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 証拠
+      description: 実装の commit/PR、実行した検証と環境・結果、未実行の項目、公開版と公開日時を別々に書きます。コード作成・build 成功・実画面での確認・業務受入・公開は、同じ完了として扱いません。
+    validations:
+      required: false
